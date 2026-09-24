@@ -6,6 +6,8 @@ Detection logic I built for the attack techniques I investigated in my [incident
 
 **Toolset:** Splunk (SPL, `stats`/`tstats`, `eval`, `iplocation`) · Windows Security & Sysmon event logs · MITRE ATT&CK.
 
+**Also available as vendor-agnostic [Sigma rules](sigma-rules.md)** — the same logic in the industry-standard detection format that converts to Splunk, Sentinel (KQL), Elastic and more.
+
 ---
 
 ## 1. SharePoint "ToolShell" exploitation (CVE-2025-53770)
