@@ -28,6 +28,10 @@ Ten curated cases spanning web exploitation, network-device CVEs, malware/macro 
 
 Beyond triaging alerts, I write the detections. See **[detections/](detections/README.md)** — Splunk SPL rules mapped to MITRE ATT&CK for the techniques above (ToolShell, ClickFix/Lumma, PAN-OS injection, web command injection, RDP brute force, SQL injection, and impossible-travel/MFA), each with tuning and false-positive notes. This is where the LetsDefend triage work turns into something a SOC can deploy.
 
+## Response Playbooks
+
+I also document the response process. See **[playbooks/](playbooks/README.md)** — concise, repeatable incident-response playbooks (phishing, brute force, web/public-facing exploitation, and malware) following the NIST SP 800-61 lifecycle, each with clear Tier 2 escalation criteria.
+
 ## How I work
 
 - **Evidence over alert metadata.** A firewall "Allowed" is not proof an attack worked; HTTP status codes, response sizes and host process/command history are. I document what I see, not what I assume.
