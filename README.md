@@ -9,7 +9,7 @@ Blue-team / SOC analyst focused on alert triage, log correlation and evidence-ba
 
 ## Incident write-ups
 
-Six curated cases spanning web exploitation, malware/phishing, brute force and threat hunting. Each follows the same discipline: take the alert, decide true/false positive from **host and network evidence** (not the alert label), map to MITRE ATT&CK, and give a containment recommendation.
+Ten curated cases spanning web exploitation, network-device CVEs, malware/macro analysis, phishing, threat hunting, brute force, SQL injection and identity/MFA. Each follows the same discipline: take the alert, decide true/false positive from **host and network evidence** (not the alert label), map to MITRE ATT&CK, and give a containment recommendation. Notably, the set includes both *successful* and *blocked/unsuccessful* attacks — because knowing the difference is the job.
 
 | # | Case | Technique | Verdict |
 |---|---|---|---|
@@ -19,6 +19,14 @@ Six curated cases spanning web exploitation, malware/phishing, brute force and t
 | 04 | [Check Point Gateway File Read (CVE-2024-24919)](04-checkpoint-gateway-file-read-CVE-2024-24919.md) | Path traversal → arbitrary file read → credential exposure | TP · successful |
 | 05 | [Internal Phishing → Threat-Hunt Finding](05-internal-phishing-threat-hunt.md) | Threat hunting → staged internal account compromise | Parallel host compromise |
 | 06 | [RDP Brute Force → Account Compromise](06-rdp-brute-force-account-compromise.md) | Brute force → interactive RDP access | TP · account compromise |
+| 07 | [PAN-OS GlobalProtect Command Injection (CVE-2024-3400)](07-panos-command-injection-CVE-2024-3400.md) | Firewall RCE via cookie → curl call-back | TP · successful |
+| 08 | [SQL Injection with Attempted RCE](08-sql-injection-analysis.md) | UNION SQLi + `xp_cmdshell` attempt | TP · blocked / unsuccessful |
+| 09 | [VPN Login from Unauthorized Country](09-vpn-unauthorized-country-mfa.md) | Valid creds from Vietnam → MFA held | TP · creds compromised, access blocked |
+| 10 | [Malicious Office Macro → PowerShell Payload](10-malicious-macro-office-document.md) | Maldoc → PowerShell → 2nd-stage download | TP · executed, not quarantined |
+
+## Detection Engineering (Splunk / SPL)
+
+Beyond triaging alerts, I write the detections. See **[detections/](detections/README.md)** — Splunk SPL rules mapped to MITRE ATT&CK for the techniques above (ToolShell, ClickFix/Lumma, PAN-OS injection, web command injection, RDP brute force, SQL injection, and impossible-travel/MFA), each with tuning and false-positive notes. This is where the LetsDefend triage work turns into something a SOC can deploy.
 
 ## How I work
 
