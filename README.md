@@ -1,48 +1,46 @@
 # SOC Analyst Portfolio — Juan Soto
 
-Blue-team / SOC analyst focused on alert triage, log correlation and evidence-based verdicts. These are incident write-ups from **20 alert-to-closure investigations** I completed in the [LetsDefend](https://letsdefend.io) simulated SOC (95% success rate).
+I am a career changer pursuing entry-level SOC analyst and SOC support roles. This portfolio documents work from **20 investigations completed in the LetsDefend simulated SOC**, alongside study notes on detection and incident response. These are training investigations, not professional SOC employment.
 
-**Verified transcript:** https://app.letsdefend.io/user/Abbyroad
-**Credentials (Credly):** https://www.credly.com/users/juan-soto.7417c7d2 — CompTIA Security+ · Blue Team Level 1 (BTL1) · Splunk Core Certified Power User · Fortinet FCF/NSE 1–2
+[Training profile](https://app.letsdefend.io/user/Abbyroad) · [Verified credentials](https://www.credly.com/users/juan-soto.7417c7d2) · [LinkedIn](https://www.linkedin.com/in/juan-soto-693761196/)
 
----
+**Certifications:** CompTIA Security+ · Blue Team Level 1 (BTL1) · Splunk Core Certified Power User · Fortinet FCF.
 
-## Incident write-ups
+## Investigation reports
 
-Ten curated cases spanning web exploitation, network-device CVEs, malware/macro analysis, phishing, threat hunting, brute force, SQL injection and identity/MFA. Each follows the same discipline: take the alert, decide true/false positive from **host and network evidence** (not the alert label), map to MITRE ATT&CK, and give a containment recommendation. Notably, the set includes both *successful* and *blocked/unsuccessful* attacks — because knowing the difference is the job.
+The reports summarize training notes, scenario evidence, investigation decisions and response recommendations. Raw log exports and evidence screenshots have not yet been added to this repository. The next revision will make each selected conclusion traceable to a specific evidence item and document alternative explanations.
 
-| # | Case | Technique | Verdict |
-|---|---|---|---|
-| 01 | [SharePoint "ToolShell" Auth Bypass → RCE (CVE-2025-53770)](01-sharepoint-toolshell-CVE-2025-53770.md) | Public-facing exploit → RCE → web shell | TP · active compromise |
-| 02 | [Lumma Stealer via ClickFix Phishing](02-lumma-stealer-clickfix-phishing.md) | Phishing → user execution → mshta payload | TP · successful |
-| 03 | [Command Injection → Active Breach](03-command-injection-active-breach.md) | Command injection → credential access | TP · active breach |
-| 04 | [Check Point Gateway File Read (CVE-2024-24919)](04-checkpoint-gateway-file-read-CVE-2024-24919.md) | Path traversal → arbitrary file read → credential exposure | TP · successful |
-| 05 | [Internal Phishing → Threat-Hunt Finding](05-internal-phishing-threat-hunt.md) | Threat hunting → staged internal account compromise | Parallel host compromise |
-| 06 | [RDP Brute Force → Account Compromise](06-rdp-brute-force-account-compromise.md) | Brute force → interactive RDP access | TP · account compromise |
-| 07 | [PAN-OS GlobalProtect Command Injection (CVE-2024-3400)](07-panos-command-injection-CVE-2024-3400.md) | Firewall RCE via cookie → curl call-back | TP · successful |
-| 08 | [SQL Injection with Attempted RCE](08-sql-injection-analysis.md) | UNION SQLi + `xp_cmdshell` attempt | TP · blocked / unsuccessful |
-| 09 | [VPN Login from Unauthorized Country](09-vpn-unauthorized-country-mfa.md) | Valid creds from Vietnam → MFA held | TP · creds compromised, access blocked |
-| 10 | [Malicious Office Macro → PowerShell Payload](10-malicious-macro-office-document.md) | Maldoc → PowerShell → 2nd-stage download | TP · executed, not quarantined |
+| Case | Investigation focus |
+|---|---|
+| [SharePoint ToolShell](01-sharepoint-toolshell-CVE-2025-53770.md) | Web requests and subsequent endpoint activity |
+| [ClickFix / Lumma Stealer](02-lumma-stealer-clickfix-phishing.md) | Email, proxy and process correlation |
+| [Command injection](03-command-injection-active-breach.md) | Requests and host command history |
+| [Check Point gateway](04-checkpoint-gateway-file-read-CVE-2024-24919.md) | File-read attempts and response evidence |
+| [Internal phishing](05-internal-phishing-threat-hunt.md) | Email context and a separate suspicious download |
+| [RDP brute force](06-rdp-brute-force-account-compromise.md) | Failed and successful authentication events |
+| [PAN-OS command injection](07-panos-command-injection-CVE-2024-3400.md) | Exploit request and device activity |
+| [SQL injection](08-sql-injection-analysis.md) | Malicious requests and limits of HTTP evidence |
+| [VPN / MFA](09-vpn-unauthorized-country-mfa.md) | Authentication stages and access outcome |
+| [Office macro](10-malicious-macro-office-document.md) | Document alert and endpoint execution evidence |
 
-## Detection Engineering (Splunk / SPL)
+## Detection and response study notes
 
-Beyond triaging alerts, I write the detections. See **[detections/](detections/README.md)** — Splunk SPL rules mapped to MITRE ATT&CK for the techniques above (ToolShell, ClickFix/Lumma, PAN-OS injection, web command injection, RDP brute force, SQL injection, and impossible-travel/MFA), each with tuning and false-positive notes. This is where the LetsDefend triage work turns into something a SOC can deploy.
+The [SPL detection examples](detections/README.md) and [Sigma drafts](detections/sigma-rules.md) are **unvalidated learning drafts**. They have not been tested against an ingested dataset or deployed in a home lab or production environment. A Splunk certification is not a claim of deployment experience. Field mappings, query correctness and false positives require testing before these examples can be used.
 
-## Response Playbooks
+The [response playbooks](playbooks/README.md) are educational outlines. Isolation, account changes and other containment actions require the organization's authorization, evidence-preservation process and assessment of service impact.
 
-I also document the response process. See **[playbooks/](playbooks/README.md)** — concise, repeatable incident-response playbooks (phishing, brute force, web/public-facing exploitation, and malware) following the NIST SP 800-61 lifecycle, each with clear Tier 2 escalation criteria.
+## Evidence review notes — September 24, 2026
 
-## How I work
+This review qualifies stronger wording in the earlier reports and queries:
 
-- **Evidence over alert metadata.** A firewall "Allowed" is not proof an attack worked; HTTP status codes, response sizes and host process/command history are. I document what I see, not what I assume.
-- **Full chain, not just the indicator.** In the Lumma case, the real second-stage C2 domain was only visible on the endpoint — the alert never named it.
-- **Escalate on confirmed impact.** Reconnaissance-looking alerts get checked against what the host actually executed before I set severity.
-- **Hunt past the alert.** The internal-phishing email was clean on its own evidence — following what the host did next uncovered a separate, staged account compromise.
+- HTTP status codes and equal response sizes alone do not establish that SQL injection failed; blind or time-based behavior requires additional evidence. A platform training verdict should not be treated as a universal detection rule.
+- Command history shows commands were invoked; it does not by itself prove that protected files were read or data was exfiltrated. A payload-download domain is not automatically a command-and-control server.
+- The current RDP SPL counts failures and successes without enforcing their order, a bounded time window or the same account. It is a starting point to revise, not a validated compromise detector.
+- Country and MFA error fields require identity-provider and user context. The current VPN example does not implement impossible-travel detection.
+- A suspicious download observed after an email does not establish causation or prove that internal accounts were compromised.
 
-## Toolset
+## Next practical milestone
 
-Splunk (SPL) · Windows Event Logs · Wireshark · VirusTotal / AbuseIPDB / URLScan · MITRE ATT&CK · Cyber Kill Chain · EDR containment · phishing & email header analysis (SPF/DKIM/DMARC).
+Validate one small authentication detection with documented input data, field mapping, expected results, a benign comparison and known limitations. Then add reproducible evidence to three selected investigations. No lab completion or successful test is claimed until that work has been performed.
 
----
-
-*Write-ups are of my own investigations on the LetsDefend training platform; hosts and IPs are lab artifacts. Shared for portfolio purposes.*
+All case material originates from a training platform. Any published identifiers are retained as scenario indicators, not presented as live threat intelligence.
