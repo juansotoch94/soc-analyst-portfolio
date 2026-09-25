@@ -8,7 +8,7 @@ I am a career changer pursuing entry-level SOC analyst and SOC support roles. Th
 
 ## Investigation reports
 
-The reports summarize training notes, scenario evidence, investigation decisions and response recommendations. Raw log exports and evidence screenshots have not yet been added to this repository. The next revision will make each selected conclusion traceable to a specific evidence item and document alternative explanations.
+The reports summarize training notes, scenario evidence, investigation decisions and response recommendations. **Start with the [reviewed RDP case](06-rdp-brute-force-account-compromise.md)**: its September 25 revision includes an [evidence register and two endpoint screenshots](SOC176-evidence.md), with explicit attribution and timestamp limits. Authentication evidence is transcribed from the training interface, not a native raw-log export. Other reports remain learning drafts requiring individual evidence review.
 
 | Case | Investigation focus |
 |---|---|
@@ -17,7 +17,7 @@ The reports summarize training notes, scenario evidence, investigation decisions
 | [Command injection](03-command-injection-active-breach.md) | Requests and host command history |
 | [Check Point gateway](04-checkpoint-gateway-file-read-CVE-2024-24919.md) | File-read attempts and response evidence |
 | [Internal phishing](05-internal-phishing-threat-hunt.md) | Email context and a separate suspicious download |
-| [RDP brute force](06-rdp-brute-force-account-compromise.md) | Failed and successful authentication events |
+| [RDP brute force — evidence reviewed](06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and attribution limits |
 | [PAN-OS command injection](07-panos-command-injection-CVE-2024-3400.md) | Exploit request and device activity |
 | [SQL injection](08-sql-injection-analysis.md) | Malicious requests and limits of HTTP evidence |
 | [VPN / MFA](09-vpn-unauthorized-country-mfa.md) | Authentication stages and access outcome |
