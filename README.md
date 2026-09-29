@@ -2,6 +2,10 @@
 
 I am a career changer pursuing entry-level SOC analyst and SOC support roles. This portfolio documents work from **20 investigations completed in the LetsDefend simulated SOC**, alongside study notes on detection and incident response. These are training investigations, not professional SOC employment.
 
+## Practical lab progress
+
+**New: [Splunk Cloud authentication-data validation](labs/splunk-auth-ingestion/README.md).** I uploaded 32 synthetic events and ran guided checks of event counts, distinct IDs, UTC timestamps and account filters. The milestone includes data, SPL, actual screenshots and assistance/limitations. The broader detection project remains in progress.
+
 [Training profile](https://app.letsdefend.io/user/Abbyroad) · [Verified credentials](https://www.credly.com/users/juan-soto.7417c7d2) · [LinkedIn](https://www.linkedin.com/in/juan-soto-693761196/)
 
 **Certifications:** CompTIA Security+ · Blue Team Level 1 (BTL1) · Splunk Core Certified Power User · Fortinet FCF.
@@ -41,6 +45,6 @@ This review qualifies stronger wording in the earlier reports and queries:
 
 ## Next practical milestone
 
-Validate one small authentication detection with documented input data, field mapping, expected results, a benign comparison and known limitations. Then add reproducible evidence to three selected investigations. No lab completion or successful test is claimed until that work has been performed.
+The first [ingestion milestone](labs/splunk-auth-ingestion/README.md) is documented. Next, finish explaining and presenting the temporal authentication detection, including negative scenarios, a benign comparison and boundary-test limitations. Further Windows/Linux and identity work will be added after execution and verification.
 
-All case material originates from a training platform. Any published identifiers are retained as scenario indicators, not presented as live threat intelligence.
+The investigation reports originate from a training platform; the new Splunk lab uses synthetic data. Published scenario identifiers are not presented as live threat intelligence.
