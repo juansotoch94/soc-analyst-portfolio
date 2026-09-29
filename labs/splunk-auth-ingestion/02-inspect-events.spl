@@ -1,0 +1,3 @@
+index=main sourcetype=_json source="auth-synthetic.jsonl" host="synthetic-auth"
+| sort 0 _time, event_id
+| table event_id timestamp _time event_code logon_type user src_ip dest_host

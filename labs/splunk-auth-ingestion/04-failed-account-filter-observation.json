@@ -1,0 +1,35 @@
+{
+  "observed_on": "2026-09-27",
+  "executor": "Juan Soto, using the mentor-provided corrected query",
+  "verification_method": "Mentor inspected all three result rows in the completed browser search and saved an unmodified screenshot. This is an observation record, not a native Splunk export.",
+  "query_file": "04-filter-failed-account-guided.spl",
+  "time_range": "All time",
+  "job_id": "1790533306.8606",
+  "job_status": "Complete",
+  "sampling": "No Event Sampling",
+  "matched_events": 3,
+  "returned_event_ids": [
+    1,
+    2,
+    3
+  ],
+  "common_observed_values": {
+    "user": "labuser-a",
+    "event_code": "4625",
+    "logon_type": "10",
+    "src_ip": "198.51.100.10",
+    "dest_host": "LAB-WIN01"
+  },
+  "observed_timestamps": [
+    "2026-09-25T12:03:50Z",
+    "2026-09-25T12:04:15Z",
+    "2026-09-25T12:04:50Z"
+  ],
+  "screenshot": "04-failed-account-filter-2026-09-27.png",
+  "learner_prediction_before_execution": null,
+  "limitations": [
+    "The mentor supplied the corrected query and its expected count before execution.",
+    "This is a verified guided example, not evidence of an independent prediction or independent query construction.",
+    "Authentication-sequence detection and its scenario tests remain pending."
+  ]
+}

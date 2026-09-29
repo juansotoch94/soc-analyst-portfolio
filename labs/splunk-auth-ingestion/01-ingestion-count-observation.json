@@ -1,0 +1,24 @@
+{
+  "observed_on": "2026-09-27",
+  "environment": "Splunk Cloud 10.5.2605.9",
+  "executor": "Juan Soto, using a mentor-provided query",
+  "verification_method": "Mentor read the completed search in the browser accessibility tree and captured the visible result. This JSON is a transcription of the observed table, not a Splunk export.",
+  "query_file": "01-ingestion-count.spl",
+  "query": "index=main sourcetype=_json source=\"auth-synthetic.jsonl\" host=\"synthetic-auth\"\n| stats count AS total_eventos dc(event_id) AS ids_distintos",
+  "time_range": "All time",
+  "job_id": "1790529786.8521",
+  "job_status": "Complete",
+  "sampling": "No Event Sampling",
+  "results": [
+    {
+      "total_eventos": 32,
+      "ids_distintos": 32
+    }
+  ],
+  "screenshot": "01-ingestion-count-2026-09-27.png",
+  "limitations": [
+    "This verifies the event count and distinct event_id count for the filtered dataset.",
+    "The exact ID set, other fields, timestamp equivalence and detection behavior have not yet been validated.",
+    "A guided execution does not demonstrate independent authorship or mastery of the query."
+  ]
+}

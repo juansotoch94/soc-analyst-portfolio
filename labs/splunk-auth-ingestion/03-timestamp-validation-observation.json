@@ -1,0 +1,24 @@
+{
+  "observed_on": "2026-09-27",
+  "executor": "Juan Soto, using a mentor-provided query",
+  "verification_method": "Mentor read the completed search in the browser accessibility tree and captured the visible result. This JSON transcribes the observed table; it is not a native Splunk export.",
+  "query_file": "03-validate-timestamps.spl",
+  "time_range": "All time",
+  "job_id": "1790531020.8544",
+  "job_status": "Complete",
+  "sampling": "No Event Sampling",
+  "results": [
+    {
+      "total_eventos": 32,
+      "fechas_leidas": 32,
+      "fechas_correctas": 32
+    }
+  ],
+  "interpretation": "For all 32 matched events, timestamp parsed successfully using an explicit +0000 UTC offset and _time minus the parsed value equaled zero seconds.",
+  "screenshot": "03-timestamp-validation-2026-09-27.png",
+  "limitations": [
+    "This validates event-time equivalence for this whole-second synthetic fixture only.",
+    "The account or browser display-timezone preference has not been inspected directly.",
+    "Full field/type validation, detection behavior and an independently modified query remain pending."
+  ]
+}

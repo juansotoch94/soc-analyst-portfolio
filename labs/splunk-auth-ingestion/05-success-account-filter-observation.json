@@ -1,0 +1,30 @@
+{
+  "observed_on": "2026-09-27",
+  "executor": "Juan Soto",
+  "provenance": "Juan proposed the code change from 4625 to 4624 and predicted one event. The mentor then helped restore the account and event-code filters in the first line. The mentor verified the subsequent execution and captured the visible result. This JSON is an observation record, not a Splunk export.",
+  "prediction_file": "05-success-filter-prediction.json",
+  "query_file": "05-filter-success-account-assisted.spl",
+  "job_id": "1790533967.8620",
+  "job_status": "Complete",
+  "time_range": "All time",
+  "sampling": "No Event Sampling",
+  "predicted_count": 1,
+  "observed_count": 1,
+  "prediction_matched": true,
+  "observed_row": {
+    "event_id": "4",
+    "timestamp": "2026-09-25T12:05:10Z",
+    "_time_displayed": "2026-09-25 12:05:10",
+    "event_code": "4624",
+    "logon_type": "10",
+    "user": "labuser-a",
+    "src_ip": "198.51.100.10",
+    "dest_host": "LAB-WIN01"
+  },
+  "screenshot": "05-success-account-filter-2026-09-27.png",
+  "limitations": [
+    "This is an assisted single-value filter change and a verified learner prediction, not independent construction of a complete detection.",
+    "A successful synthetic authentication does not establish compromise.",
+    "Full field/type validation and the eight-scenario detection tests remain pending."
+  ]
+}
