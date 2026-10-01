@@ -1,12 +1,13 @@
 # Detection Engineering — Splunk (SPL)
 
-Detection logic I built for the attack techniques I investigated in my [incident write-ups](..). Each rule states what it catches, the data source it runs against, the SPL, the MITRE ATT&CK technique, and tuning/false-positive notes — because a detection that pages the SOC every ten minutes is worse than no detection.
+Illustrative SPL examples associated with my [training write-ups](..). The [guided authentication lab](../labs/splunk-auth-detection/README.md) provides executed searches, native result CSVs and screenshots for the RDP sequence entry below. The remaining snippets require separate validation before use.
 
-> These are illustrative rules written against common Splunk sourcetypes (proxy, firewall, IIS/web, `WinEventLog:Security`, Sysmon). Field names would be mapped to the target environment's data model (e.g., CIM) before deployment. I can walk through the logic and the tuning decisions for any of them.
+> The tested lab uses synthetic normalized JSON. It does not validate native Windows collection or deployment. Other examples reference common sourcetypes; their fields and behavior must be checked against the actual data source.
 
-**Toolset:** Splunk (SPL, `stats`/`tstats`, `eval`, `iplocation`) · Windows Security & Sysmon event logs · MITRE ATT&CK.
+**Example topics:** Splunk SPL, authentication events, process activity, web/proxy logs and MITRE ATT&CK.
 
-**Also available as vendor-agnostic [Sigma rules](sigma-rules.md)** — the same logic in the industry-standard detection format that converts to Splunk, Sentinel (KQL), Elastic and more.
+[Separate illustrative Sigma examples](sigma-rules.md) are also available. They are not validated equivalents of the tested P1 sequence query.
+
 
 ---
 
@@ -85,20 +86,21 @@ index=edr sourcetype=Sysmon EventCode=1 host=<dest_host>
 
 ---
 
-## 5. RDP brute force that succeeded
-**Catches:** the pattern that actually matters — many failed logons from one source to one host on RDP, **followed by a success** on the same account. Volume of failures alone is only "someone tried." See [write-up 06](../06-rdp-brute-force-account-compromise.md).
-**Data source:** `WinEventLog:Security` (Logon Type 10 = RemoteInteractive/RDP).
-```spl
-index=win sourcetype=WinEventLog:Security (EventCode=4625 OR EventCode=4624) Logon_Type=10
-| stats count(eval(EventCode=4625)) as failed
-        count(eval(EventCode=4624)) as success
-        min(_time) as first max(_time) as last
-        values(Account_Name) as accounts by src_ip, dest_host
-| where failed >= 10 AND success >= 1
-| eval window_min=round((last-first)/60,1)
-```
-**MITRE:** T1110 · T1078.002 · T1021.001
-**Tuning:** raise the `failed` threshold for hosts behind a jump box that legitimately sees many logons; the `success >= 1` condition is what keeps this from firing on failed-only spray.
+## 5. Successful authentication after repeated failures — tested synthetic lab
+
+**Current evidence:** [Guided Splunk lab and reproduction steps](../labs/splunk-auth-detection/README.md) · [Tested SPL](../labs/splunk-auth-detection/12-detect-success-whole-seconds.spl) · [Native result CSV](../labs/splunk-auth-detection/12-corrected-detection-results-2026-09-28.csv).
+
+This entry supersedes the earlier aggregate query. That query counted failures and successes together using `stats`, grouped only by source IP and destination, and collected account names with `values(Account_Name)`. It could combine different accounts and did not establish failures before success. Its calculated `window_min` described the overall span without enforcing a time window. A success count did not demonstrate a successful brute-force attack.
+
+**Tested behavior:** on 32 synthetic normalized authentication events, query 12 returns successful events preceded by at least three failures for the same `user`, `src_ip` and `dest_host` within the preceding 300 seconds. Only success IDs **4 and 32** matched, with three prior failures each. The threshold of three is a lab parameter, replacing the untested threshold of ten in the old example.
+
+Juan ran the guided searches and three boundary controls, including a correction; the mentor supplied the fixture/SPL and ran the final regression against all eight scenario expectations. The failed initial boundary control is preserved in the lab. Matching fixture expectations is not a production accuracy score.
+
+**Timing limit:** the tested implementation uses `time_window=301s` to implement the inclusive 300-second contract for this fixture's whole-second timestamps. Fractional timestamps require different logic and additional tests. See the [boundary findings](../labs/splunk-auth-detection/README.md#boundary-defect-and-correction).
+
+**Investigation limit:** a match establishes an authentication pattern, not account compromise. Scenario H also matches, while its supplied fictional owner-confirmation context describes authorized retries. The [volume report](../labs/splunk-auth-detection/README.md#authentication-volume-report) summarizes counts; it does not establish temporal order.
+
+**Before using real telemetry:** validate collection, field mappings, timestamp precision, duplicates, late events, scheduling and alert suppression. No native Windows deployment or scheduled alert was implemented in this lab. The earlier example remains in [Git history](https://github.com/juansotoch94/soc-analyst-portfolio/blob/8a93823832da7087d1a381a58a21e5f1f6e1e275/detections/README.md#5-rdp-brute-force-that-succeeded).
 
 ---
 
@@ -136,4 +138,4 @@ index=vpn (action=success OR action="Incorrect OTP*" OR action=failure)
 
 ---
 
-*Rules are written from my own SOC investigations. Field names are illustrative and would be normalized to the destination environment's schema (Splunk CIM) at deployment.*
+*These examples accompany training case studies. The RDP lab records its executed tests and assistance; the other snippets require separate validation.*
