@@ -4,7 +4,9 @@ I am a career changer pursuing entry-level SOC analyst and SOC support roles. Th
 
 ## Practical lab progress
 
-**New: [Splunk Cloud authentication-data validation](labs/splunk-auth-ingestion/README.md).** I uploaded 32 synthetic events and ran guided checks of event counts, distinct IDs, UTC timestamps and account filters. The milestone includes data, SPL, actual screenshots and assistance/limitations. The broader detection project remains in progress.
+**New: [Tested Splunk authentication sequence detection](labs/splunk-auth-detection/README.md).** A guided 32-event lab covering eight scenarios, an exact-boundary defect and its scoped correction. Includes executable SPL, native CSV results, original screenshots, a benign-case assessment and reproduction steps, with clear attribution of my work and mentor assistance.
+
+The earlier [ingestion milestone](labs/splunk-auth-ingestion/README.md) documents event counts, distinct IDs, UTC timestamps and account filters.
 
 [Training profile](https://app.letsdefend.io/user/Abbyroad) · [Verified credentials](https://www.credly.com/users/juan-soto.7417c7d2) · [LinkedIn](https://www.linkedin.com/in/juan-soto-693761196/)
 
@@ -39,12 +41,12 @@ This review qualifies stronger wording in the earlier reports and queries:
 
 - HTTP status codes and equal response sizes alone do not establish that SQL injection failed; blind or time-based behavior requires additional evidence. A platform training verdict should not be treated as a universal detection rule.
 - Command history shows commands were invoked; it does not by itself prove that protected files were read or data was exfiltrated. A payload-download domain is not automatically a command-and-control server.
-- The current RDP SPL counts failures and successes without enforcing their order, a bounded time window or the same account. It is a starting point to revise, not a validated compromise detector.
+- The older RDP SPL study draft in `detections/` counts failures and successes without enforcing their order, a bounded time window or the same account. The separate [guided authentication lab](labs/splunk-auth-detection/README.md) now tests those conditions on synthetic data; it does not establish compromise or validate the other study drafts.
 - Country and MFA error fields require identity-provider and user context. The current VPN example does not implement impossible-travel detection.
 - A suspicious download observed after an email does not establish causation or prove that internal accounts were compromised.
 
 ## Next practical milestone
 
-The first [ingestion milestone](labs/splunk-auth-ingestion/README.md) is documented. Next, finish explaining and presenting the temporal authentication detection, including negative scenarios, a benign comparison and boundary-test limitations. Further Windows/Linux and identity work will be added after execution and verification.
+The [ingestion](labs/splunk-auth-ingestion/README.md) and [guided detection](labs/splunk-auth-detection/README.md) milestones are documented with evidence. Next, extend practical Windows/Linux and identity work, adding each result after execution and verification.
 
 The investigation reports originate from a training platform; the new Splunk lab uses synthetic data. Published scenario identifiers are not presented as live threat intelligence.
