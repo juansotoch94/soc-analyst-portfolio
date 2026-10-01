@@ -1,0 +1,7 @@
+index=main sourcetype=_json source="auth-synthetic.jsonl" host="synthetic-auth" logon_type=10
+| stats count(eval(event_code=4625)) AS fallos
+    count(eval(event_code=4624)) AS exitos
+    BY user src_ip dest_host
+| sort 0 user src_ip dest_host
+| eval grupo=user." / ".src_ip." / ".dest_host
+| table grupo fallos exitos

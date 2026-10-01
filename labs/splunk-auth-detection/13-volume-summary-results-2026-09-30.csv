@@ -1,0 +1,12 @@
+grupo,fallos,exitos
+"labuser-a / 198.51.100.10 / LAB-WIN01",3,1
+"labuser-b / 198.51.100.11 / LAB-WIN01",4,0
+"labuser-c / 198.51.100.12 / LAB-WIN01",3,1
+"labuser-d / 198.51.100.13 / LAB-WIN01",3,0
+"labuser-e / 198.51.100.14 / LAB-WIN01",3,0
+"labuser-e / 198.51.100.14 / LAB-WIN02",0,1
+"labuser-f / 198.51.100.15 / LAB-WIN01",3,0
+"labuser-f / 198.51.100.200 / LAB-WIN01",0,1
+"labuser-g / 198.51.100.16 / LAB-WIN01",3,1
+"labuser-h / 198.51.100.17 / LAB-WIN01",3,1
+"labuser-other / 198.51.100.13 / LAB-WIN01",0,1

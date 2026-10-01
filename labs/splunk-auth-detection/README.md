@@ -10,9 +10,9 @@ This is a detection search with reproducible lab evidence. No scheduled alert, p
 
 ## My work and assistance
 
-I uploaded the data, validated counts and UTC timestamps, ran guided searches, changed the time window, executed the boundary correction and explained grouping, results and investigation limits. Codex supplied the synthetic fixture, initial SPL, expected tests and mentoring; it compared the outputs and executed the final regression on the original dataset. Documentation was prepared with assistance. The final regression screenshot below is mentor-executed; my baseline and boundary runs are linked separately.
+I uploaded the data, validated counts and UTC timestamps, ran guided searches, changed the time window, executed the boundary correction and explained grouping, results and investigation limits. I also ran the volume summary, selected its bar chart, and saved and opened the report. Codex supplied the synthetic fixture, SPL, expected tests and mentoring; it compared the outputs, executed the final detection regression and adjusted the chart's axis and value labels. Documentation and evidence capture were assisted. The final regression screenshot below is mentor-executed; my baseline and boundary runs are linked separately.
 
-The earlier [ingestion milestone](../splunk-auth-ingestion/README.md) contains the upload and field-validation evidence. The searches shown here were executed on September 28, 2026; explanation and packaging followed on September 30.
+The earlier [ingestion milestone](../splunk-auth-ingestion/README.md) contains the upload and field-validation evidence. The detection and boundary searches were executed on September 28, 2026; explanation, packaging and the volume report followed on September 30.
 
 ## Detection and observed output
 
@@ -26,6 +26,18 @@ The earlier [ingestion milestone](../splunk-auth-ingestion/README.md) contains t
 ![Corrected detection results from the mentor-executed regression](12-corrected-detection-2026-09-28.png)
 
 The query filters synthetic 4624/4625 events with logon type 10, sorts chronologically, counts preceding failures by `user src_ip dest_host`, and returns qualifying successes. The result table is a starting point for investigation; surrounding events remain available in the source data.
+
+## Authentication volume report
+
+[Summary SPL](13-volume-summary-for-chart.spl) · [Native result CSV](13-volume-summary-results-2026-09-30.csv) · [Saved report screenshot](13-report-view-2026-09-30.png)
+
+The saved **Authentication outcomes - synthetic lab** report summarizes all 32 synthetic events as **25 failures and 7 successes across 11 user/source/destination groups**. Both the bar chart and statistics table were verified after opening the report. The screenshot shows the full chart and the first part of the table; the CSV contains all eleven rows.
+
+This is a descriptive volume report. It does not check event order or the 300-second window, and the groups are not alerts or confirmed attacks. For example, scenarios A and C both show three failures and one success, although only A has failures before success. That distinction is checked by the separate detection query above.
+
+![Saved Splunk report with authentication counts by user, source IP and destination](13-report-view-2026-09-30.png)
+
+The native CSV was exported from completed job `1790818968.15226`. Opening the saved report reused that job; it was not a new independent execution. The report was saved with a time-range picker and with both chart and statistics table. No scheduled alert or dashboard was created.
 
 ## Scenario checks
 
@@ -75,6 +87,7 @@ The fictional investigation context says the account owner confirmed authorized 
 3. Run [query 03](03-validate-timestamps.spl): expect 32 total events, 32 parsed dates and 32 correct timestamps. Resolve any mismatch before testing detection logic.
 4. Run [query 12](12-detect-success-whole-seconds.spl): expect IDs 4 and 32, each with three failures. Compare them with the scenario table.
 5. Run [query 11](11-time-boundary-whole-seconds-candidate.spl): expect 3/si, 2/no and 2/no for the three controls above. Its `makeresults` data is temporary; no second upload is required.
+6. Run [query 13](13-volume-summary-for-chart.spl) with the same All time range: expect 11 rows, with `fallos` totaling 25 and `exitos` totaling 7. Select **Visualization > Bar**. The recorded formatting used a non-stacked linear chart, axis minimum 0, interval 1 and data values on. Save as a report with **Bar Chart and Statistics Table** and a time-range picker, then open it to check both views.
 
 Observed environment: Splunk Cloud 10.5.2605.9. These instructions document the original executions; another fresh environment has not been tested. CSVs, screenshots, SPL and fixture files in this package preserve the originals; [SHA256SUMS.txt](SHA256SUMS.txt) records their hashes.
 
