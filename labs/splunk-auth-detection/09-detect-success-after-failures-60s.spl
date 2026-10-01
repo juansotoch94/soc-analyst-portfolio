@@ -1,0 +1,5 @@
+index=main sourcetype=_json source="auth-synthetic.jsonl" host="synthetic-auth" logon_type=10 (event_code=4624 OR event_code=4625)
+| sort 0 _time event_code event_id
+| streamstats time_window=60s count(eval(event_code=4625)) AS fallos_previos_60s BY user src_ip dest_host
+| where event_code=4624 AND fallos_previos_60s>=3
+| table event_id timestamp user src_ip dest_host fallos_previos_60s

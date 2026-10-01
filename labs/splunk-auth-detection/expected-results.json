@@ -1,0 +1,113 @@
+{
+  "status": "Expected outcomes only; not executed in Splunk",
+  "provenance": "Synthetic exercise fixtures prepared by Codex as mentor for Juan Soto",
+  "expected_input_count": 32,
+  "window_seconds": 300,
+  "failure_threshold": 3,
+  "expected_alert_event_ids": [
+    4,
+    32
+  ],
+  "scenarios": [
+    {
+      "scenario": "A",
+      "description": "Failures then success; same keys; spans a fixed five-minute boundary",
+      "input_event_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected_alert_event_ids": [
+        4
+      ],
+      "actual_result": null
+    },
+    {
+      "scenario": "B",
+      "description": "Failures only",
+      "input_event_ids": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "C",
+      "description": "Success before failures",
+      "input_event_ids": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "D",
+      "description": "Success belongs to a different account",
+      "input_event_ids": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "E",
+      "description": "Success belongs to a different destination host",
+      "input_event_ids": [
+        17,
+        18,
+        19,
+        20
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "F",
+      "description": "Success belongs to a different source IP",
+      "input_event_ids": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "G",
+      "description": "Success is more than 300 seconds after every failure",
+      "input_event_ids": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "expected_alert_event_ids": [],
+      "actual_result": null
+    },
+    {
+      "scenario": "H",
+      "description": "Pattern matches; fictional owner confirmation establishes authorized retries",
+      "input_event_ids": [
+        29,
+        30,
+        31,
+        32
+      ],
+      "expected_alert_event_ids": [
+        32
+      ],
+      "actual_result": null
+    }
+  ]
+}

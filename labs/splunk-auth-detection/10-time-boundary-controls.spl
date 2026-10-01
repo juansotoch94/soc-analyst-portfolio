@@ -1,0 +1,21 @@
+| makeresults format=csv data="event_id,user,segundos_antes,event_code
+101,limite_300,300,4625
+102,limite_300,60,4625
+103,limite_300,30,4625
+104,limite_300,0,4624
+201,fuera_301,301,4625
+202,fuera_301,60,4625
+203,fuera_301,30,4625
+204,fuera_301,0,4624
+301,empate,60,4625
+302,empate,30,4625
+303,empate,0,4625
+304,empate,0,4624"
+| eval event_id=tonumber(event_id), event_code=tonumber(event_code), segundos_antes=tonumber(segundos_antes)
+| eval _time=strptime("2026-09-25T12:05:10+0000","%Y-%m-%dT%H:%M:%S%z")-segundos_antes, logon_type=10, src_ip="198.51.100.50", dest_host="LAB-CONTROL"
+| where logon_type=10 AND (event_code=4624 OR event_code=4625)
+| sort 0 _time event_code event_id
+| streamstats time_window=300s count(eval(event_code=4625)) AS fallos_previos_300s BY user src_ip dest_host
+| where event_code=4624
+| eval activa_regla=if(fallos_previos_300s>=3,"si","no")
+| table user fallos_previos_300s activa_regla

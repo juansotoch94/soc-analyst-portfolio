@@ -1,0 +1,4 @@
+user,"fallos_previos_300s","activa_regla"
+"limite_300",3,si
+"fuera_301",2,no
+empate,2,no

@@ -1,0 +1,5 @@
+index=main sourcetype=_json source="auth-synthetic.jsonl" host="synthetic-auth"
+| eval fecha_normalizada=replace(timestamp,"Z$","+0000")
+| eval hora_esperada=strptime(fecha_normalizada,"%Y-%m-%dT%H:%M:%S%z")
+| eval desfase_segundos=_time-hora_esperada
+| stats count AS total_eventos count(hora_esperada) AS fechas_leidas count(eval(desfase_segundos=0)) AS fechas_correctas

@@ -1,0 +1,2 @@
+index=main sourcetype=_json source="auth-synthetic.jsonl" host="synthetic-auth"
+| stats count AS total_eventos dc(event_id) AS ids_distintos
