@@ -10,7 +10,7 @@ Entry-level SOC and security support candidate in South Florida (Miami-Dade / Br
 | Project | What it shows | Type | Evidence |
 |---|---|---|---|
 | [Splunk authentication sequence detection](labs/splunk-auth-detection/README.md) | SPL that finds a successful logon after 3+ failures in 300 s for the same user, source and host. Eight test scenarios; a boundary test exposed a defect, which was corrected and re-verified. | Guided lab · synthetic data | Executable SPL, native CSV results, screenshots, reproduction steps |
-| [RDP brute-force case (SOC176)](06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and the limits of attributing activity to one session. | Simulated SOC alert · evidence reviewed | [Evidence register and endpoint screenshots](SOC176-evidence.md) |
+| [RDP brute-force case (SOC176)](letsdefend-training/06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and the limits of attributing activity to one session. | Simulated SOC alert · evidence reviewed | [Evidence register and endpoint screenshots](letsdefend-training/SOC176-evidence.md) |
 | [Ubuntu Server update recovery](labs/ubuntu-update-recovery/README.md) | Diagnosing an interrupted update with `dpkg --audit`, completing configuration and verifying packages, reboot and services. | Guided personal lab | Step-by-step recovery record with stated limits |
 | [Splunk data validation before detection](labs/splunk-auth-ingestion/README.md) | Checking event counts, unique IDs and UTC timestamps before trusting a search. | Guided lab · synthetic data | Queries, screenshots, observation files |
 
@@ -18,9 +18,9 @@ Entry-level SOC and security support candidate in South Florida (Miami-Dade / Br
 
 | Skill | Evidence |
 |---|---|
-| Alert triage and investigation write-ups | [RDP case](06-rdp-brute-force-account-compromise.md), [simulated SOC reports](#simulated-soc-training-letsdefend) |
+| Alert triage and investigation write-ups | [RDP case](letsdefend-training/06-rdp-brute-force-account-compromise.md), [simulated SOC reports](#simulated-soc-training-letsdefend) |
 | Splunk SPL: filtering, grouping, time windows, testing edge cases | [Detection lab](labs/splunk-auth-detection/README.md), [ingestion lab](labs/splunk-auth-ingestion/README.md) |
-| Windows authentication events (4624 / 4625) | [Detection lab](labs/splunk-auth-detection/README.md), [RDP case](06-rdp-brute-force-account-compromise.md) |
+| Windows authentication events (4624 / 4625) | [Detection lab](labs/splunk-auth-detection/README.md), [RDP case](letsdefend-training/06-rdp-brute-force-account-compromise.md) |
 | Linux command line and package recovery | [Ubuntu recovery](labs/ubuntu-update-recovery/README.md) |
 | Separating observations from conclusions | Every featured project ends with what the evidence does **not** show |
 
@@ -30,16 +30,16 @@ Twenty alert investigations completed in LetsDefend's simulated SOC between May 
 
 | Case | Investigation focus |
 |---|---|
-| [SharePoint ToolShell](01-sharepoint-toolshell-CVE-2025-53770.md) | Web requests and subsequent endpoint activity |
-| [ClickFix / Lumma Stealer](02-lumma-stealer-clickfix-phishing.md) | Email, proxy and process correlation |
-| [Command injection](03-command-injection-active-breach.md) | Requests and host command history |
-| [Check Point gateway](04-checkpoint-gateway-file-read-CVE-2024-24919.md) | File-read attempts and response evidence |
-| [Internal phishing](05-internal-phishing-threat-hunt.md) | Email context and a separate suspicious download |
-| [RDP brute force — evidence reviewed](06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and attribution limits |
-| [PAN-OS command injection](07-panos-command-injection-CVE-2024-3400.md) | Exploit request and device activity |
-| [SQL injection](08-sql-injection-analysis.md) | Malicious requests and limits of HTTP evidence |
-| [VPN / MFA](09-vpn-unauthorized-country-mfa.md) | Authentication stages and access outcome |
-| [Office macro](10-malicious-macro-office-document.md) | Document alert and endpoint execution evidence |
+| [SharePoint ToolShell](letsdefend-training/01-sharepoint-toolshell-CVE-2025-53770.md) | Web requests and subsequent endpoint activity |
+| [ClickFix / Lumma Stealer](letsdefend-training/02-lumma-stealer-clickfix-phishing.md) | Email, proxy and process correlation |
+| [Command injection](letsdefend-training/03-command-injection-active-breach.md) | Requests and host command history |
+| [Check Point gateway](letsdefend-training/04-checkpoint-gateway-file-read-CVE-2024-24919.md) | File-read attempts and response evidence |
+| [Internal phishing](letsdefend-training/05-internal-phishing-threat-hunt.md) | Email context and a separate suspicious download |
+| [RDP brute force — evidence reviewed](letsdefend-training/06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and attribution limits |
+| [PAN-OS command injection](letsdefend-training/07-panos-command-injection-CVE-2024-3400.md) | Exploit request and device activity |
+| [SQL injection](letsdefend-training/08-sql-injection-analysis.md) | Malicious requests and limits of HTTP evidence |
+| [VPN / MFA](letsdefend-training/09-vpn-unauthorized-country-mfa.md) | Authentication stages and access outcome |
+| [Office macro](letsdefend-training/10-malicious-macro-office-document.md) | Document alert and endpoint execution evidence |
 
 ## Next
 

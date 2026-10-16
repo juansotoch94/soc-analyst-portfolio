@@ -12,7 +12,7 @@ Illustrative SPL examples associated with my [training write-ups](..). The [guid
 ---
 
 ## 1. SharePoint "ToolShell" exploitation (CVE-2025-53770)
-**Catches:** the auth-bypass request pattern *and* the post-exploitation process chain, so you alert on exploitation, not just a scan. See [write-up 01](../01-sharepoint-toolshell-CVE-2025-53770.md).
+**Catches:** the auth-bypass request pattern *and* the post-exploitation process chain, so you alert on exploitation, not just a scan. See [write-up 01](../letsdefend-training/01-sharepoint-toolshell-CVE-2025-53770.md).
 **Data source:** IIS/web logs + Sysmon (EventCode 1).
 
 Request pattern — POST to `ToolPane.aspx` with the spoofed `SignOut.aspx` referer and an oversized body:
@@ -35,7 +35,7 @@ index=edr sourcetype=Sysmon EventCode=1 ParentImage="*\\w3wp.exe"
 ---
 
 ## 2. Lumma Stealer via ClickFix (LOLBin execution)
-**Catches:** the ClickFix hallmark — `powershell.exe` launching `mshta.exe` (or an HTA/`.mp4`-disguised payload) — and the delivery domain. See [write-up 02](../02-lumma-stealer-clickfix-phishing.md).
+**Catches:** the ClickFix hallmark — `powershell.exe` launching `mshta.exe` (or an HTA/`.mp4`-disguised payload) — and the delivery domain. See [write-up 02](../letsdefend-training/02-lumma-stealer-clickfix-phishing.md).
 **Data source:** Sysmon + proxy.
 ```spl
 index=edr sourcetype=Sysmon EventCode=1
@@ -54,7 +54,7 @@ index=proxy (url="*windows-update.*" OR url="*.shop" OR uri_path="*.mp4")
 ---
 
 ## 3. PAN-OS GlobalProtect command injection (CVE-2024-3400)
-**Catches:** OS-command / path-traversal payloads smuggled through the GlobalProtect `SESSID` cookie (curl call-back, `${IFS}`, panlog paths). See [write-up 04b](../07-panos-command-injection-CVE-2024-3400.md).
+**Catches:** OS-command / path-traversal payloads smuggled through the GlobalProtect `SESSID` cookie (curl call-back, `${IFS}`, panlog paths). See [write-up 04b](../letsdefend-training/07-panos-command-injection-CVE-2024-3400.md).
 **Data source:** firewall/web logs.
 ```spl
 index=web (uri_path="*/global-protect/*" OR uri_path="*/ssl-vpn/*")
@@ -67,7 +67,7 @@ index=web (uri_path="*/global-protect/*" OR uri_path="*/ssl-vpn/*")
 ---
 
 ## 4. Web command injection — OS commands in the request (whoami / id / cat)
-**Catches:** command-injection attempts in the URL or POST body, then confirms execution by pivoting to the host's process history. See [write-up 03](../03-command-injection-active-breach.md).
+**Catches:** command-injection attempts in the URL or POST body, then confirms execution by pivoting to the host's process history. See [write-up 03](../letsdefend-training/03-command-injection-active-breach.md).
 **Data source:** web logs (+ Sysmon to confirm impact).
 ```spl
 index=web (method=POST OR method=GET)
@@ -105,7 +105,7 @@ Juan ran the guided searches and three boundary controls, including a correction
 ---
 
 ## 6. SQL injection — with a success-vs-blocked verdict
-**Catches:** SQLi payloads, and — critically — separates a *successful* extraction from a *blocked* attempt using response status and response-size variety, instead of trusting the firewall's "Allowed". See [write-up 08](../08-sql-injection-analysis.md).
+**Catches:** SQLi payloads, and — critically — separates a *successful* extraction from a *blocked* attempt using response status and response-size variety, instead of trusting the firewall's "Allowed". See [write-up 08](../letsdefend-training/08-sql-injection-analysis.md).
 **Data source:** web logs.
 ```spl
 index=web
@@ -122,7 +122,7 @@ index=web
 ---
 
 ## 7. VPN login from an unauthorized country (with MFA context)
-**Catches:** VPN authentication from an anomalous geography, correlated with OTP/MFA outcome — so you can tell a *compromised password stopped by MFA* apart from a *full account takeover*. See [write-up 09](../09-vpn-unauthorized-country-mfa.md).
+**Catches:** VPN authentication from an anomalous geography, correlated with OTP/MFA outcome — so you can tell a *compromised password stopped by MFA* apart from a *full account takeover*. See [write-up 09](../letsdefend-training/09-vpn-unauthorized-country-mfa.md).
 **Data source:** VPN / auth logs.
 ```spl
 index=vpn (action=success OR action="Incorrect OTP*" OR action=failure)
