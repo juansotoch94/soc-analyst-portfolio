@@ -1,20 +1,32 @@
-# SOC Analyst Portfolio — Juan Soto
+# Juan Soto — SOC Analyst Portfolio
 
-I am a career changer pursuing entry-level SOC analyst and SOC support roles. This portfolio documents work from **20 investigations completed in the LetsDefend simulated SOC**, alongside study notes on detection and incident response. These are training investigations, not professional SOC employment.
+Entry-level SOC and security support candidate in South Florida (Miami-Dade / Broward, or remote from Florida). Available for any shift. English and Spanish.
 
-## Practical lab progress
+**Certifications:** CompTIA Security+ · Blue Team Level 1 (BTL1) · Splunk Core Certified Power User · Fortinet FCF
+[Verified credentials](https://www.credly.com/users/juan-soto.7417c7d2) · [LinkedIn](https://www.linkedin.com/in/juan-soto-693761196/) · [LetsDefend training profile](https://app.letsdefend.io/user/Abbyroad)
 
-**New: [Tested Splunk authentication sequence detection](labs/splunk-auth-detection/README.md).** A guided 32-event lab covering eight scenarios, an exact-boundary defect and its scoped correction. Includes executable SPL, native CSV results, original screenshots, a benign-case assessment and reproduction steps, with clear attribution of my work and mentor assistance.
+## Featured work
 
-The earlier [ingestion milestone](labs/splunk-auth-ingestion/README.md) documents event counts, distinct IDs, UTC timestamps and account filters.
+| Project | What it shows | Type | Evidence |
+|---|---|---|---|
+| [Splunk authentication sequence detection](labs/splunk-auth-detection/README.md) | SPL that finds a successful logon after 3+ failures in 300 s for the same user, source and host. Eight test scenarios; a boundary test exposed a defect, which was corrected and re-verified. | Guided lab · synthetic data | Executable SPL, native CSV results, screenshots, reproduction steps |
+| [RDP brute-force case (SOC176)](06-rdp-brute-force-account-compromise.md) | Authentication results, endpoint command associations and the limits of attributing activity to one session. | Simulated SOC alert · evidence reviewed | [Evidence register and endpoint screenshots](SOC176-evidence.md) |
+| [Ubuntu Server update recovery](labs/ubuntu-update-recovery/README.md) | Diagnosing an interrupted update with `dpkg --audit`, completing configuration and verifying packages, reboot and services. | Guided personal lab | Step-by-step recovery record with stated limits |
+| [Splunk data validation before detection](labs/splunk-auth-ingestion/README.md) | Checking event counts, unique IDs and UTC timestamps before trusting a search. | Guided lab · synthetic data | Queries, screenshots, observation files |
 
-[Training profile](https://app.letsdefend.io/user/Abbyroad) · [Verified credentials](https://www.credly.com/users/juan-soto.7417c7d2) · [LinkedIn](https://www.linkedin.com/in/juan-soto-693761196/)
+## Skills and where to see them
 
-**Certifications:** CompTIA Security+ · Blue Team Level 1 (BTL1) · Splunk Core Certified Power User · Fortinet FCF.
+| Skill | Evidence |
+|---|---|
+| Alert triage and investigation write-ups | [RDP case](06-rdp-brute-force-account-compromise.md), [simulated SOC reports](#simulated-soc-training-letsdefend) |
+| Splunk SPL: filtering, grouping, time windows, testing edge cases | [Detection lab](labs/splunk-auth-detection/README.md), [ingestion lab](labs/splunk-auth-ingestion/README.md) |
+| Windows authentication events (4624 / 4625) | [Detection lab](labs/splunk-auth-detection/README.md), [RDP case](06-rdp-brute-force-account-compromise.md) |
+| Linux command line and package recovery | [Ubuntu recovery](labs/ubuntu-update-recovery/README.md) |
+| Separating observations from conclusions | Every featured project ends with what the evidence does **not** show |
 
-## Investigation reports
+## Simulated SOC training (LetsDefend)
 
-The reports summarize training notes, scenario evidence, investigation decisions and response recommendations. **Start with the [reviewed RDP case](06-rdp-brute-force-account-compromise.md)**: its September 25 revision includes an [evidence register and two endpoint screenshots](SOC176-evidence.md), with explicit attribution and timestamp limits. Authentication evidence is transcribed from the training interface, not a native raw-log export. Other reports remain learning drafts requiring individual evidence review.
+Twenty alert investigations completed in LetsDefend's simulated SOC between May and July 2026. The ten reports below are training write-ups. **Only the RDP case has been fully re-reviewed against its evidence**; the others remain learning drafts.
 
 | Case | Investigation focus |
 |---|---|
@@ -29,13 +41,19 @@ The reports summarize training notes, scenario evidence, investigation decisions
 | [VPN / MFA](09-vpn-unauthorized-country-mfa.md) | Authentication stages and access outcome |
 | [Office macro](10-malicious-macro-office-document.md) | Document alert and endpoint execution evidence |
 
-## Detection and response study notes
+## Next
 
-The [SPL detection examples](detections/README.md) and [Sigma drafts](detections/sigma-rules.md) are **unvalidated learning drafts**. They have not been tested against an ingested dataset or deployed in a home lab or production environment. A Splunk certification is not a claim of deployment experience. Field mappings, query correctness and false positives require testing before these examples can be used.
+Independent projects, each published with a case-file write-up and evidence: phishing email header analysis, a basic Active Directory lab, and a blind investigation on a public Splunk dataset. Each will be added only after it is executed and verified.
 
-The [response playbooks](playbooks/README.md) are educational outlines. Isolation, account changes and other containment actions require the organization's authorization, evidence-preservation process and assessment of service impact.
+## Scope and attribution
 
-## Evidence review notes — September 24, 2026
+- **This is training, not employment.** The investigations come from a training platform and the Splunk labs use synthetic data. Scenario identifiers are not presented as live threat intelligence.
+- **Guided work is labeled as guided.** Each lab README states what I did and what a mentor or AI assistant supplied or executed.
+- **Study drafts are not validated detections.** The [SPL examples](detections/README.md) and [Sigma drafts](detections/sigma-rules.md) have not been tested against ingested data or deployed. A Splunk certification is not a claim of deployment experience.
+- **Playbooks are educational outlines.** The [response playbooks](playbooks/README.md) assume containment actions would require an organization's authorization, evidence preservation and impact assessment.
+
+<details>
+<summary>Evidence review notes — September 24, 2026</summary>
 
 This review qualifies stronger wording in the earlier reports and queries:
 
@@ -45,8 +63,4 @@ This review qualifies stronger wording in the earlier reports and queries:
 - Country and MFA error fields require identity-provider and user context. The current VPN example does not implement impossible-travel detection.
 - A suspicious download observed after an email does not establish causation or prove that internal accounts were compromised.
 
-## Next practical milestone
-
-The [ingestion](labs/splunk-auth-ingestion/README.md) and [guided detection](labs/splunk-auth-detection/README.md) milestones are documented with evidence. Next, extend practical Windows/Linux and identity work, adding each result after execution and verification.
-
-The investigation reports originate from a training platform; the new Splunk lab uses synthetic data. Published scenario identifiers are not presented as live threat intelligence.
+</details>
